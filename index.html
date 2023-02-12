@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>キリンたんシミュ</title>
+<script>
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('/service-worker.js')
+	}
+</script>
+<link rel="manifest" href="/manifest.webmanifest">
+
+<h1>キリンたんシミュ</h1>
+<ul>
+	<li><a href="play">スタート</a></li>
+	<li><a href="description">説明</a></li>
+	<li><a href="#" id="install-button" style="display: none;">インストール</a></li>
+</ul>
+
+<script>
+	let deferredPrompt
+	const installButton = document.querySelector('#install-button')
+
+	window.addEventListener('beforeinstallprompt', event => {
+		event.preventDefault()
+		deferredPrompt = event
+		installButton.style.display = 'inline'
+
+		installButton.addEventListener('click', async () => {
+			deferredPrompt.prompt()
+			const choiceResult = await deferredPrompt.userChoice
+			deferredPrompt = null
+		})
+	})
+</script>
