@@ -1,11 +1,9 @@
-const cacheName = 'kirintan-simulation-v1'
+const cacheName = 'kirintan-simulation-v2'
 
 self.addEventListener('install', event => {
 	event.waitUntil((async () => {
 		const cache = await caches.open(cacheName)
 		cache.addAll([
-			'description/',
-			'description/index.html',
 			'index.html',
 			'play/',
 			'play/index.html',
